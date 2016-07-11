@@ -29,3 +29,27 @@ class Translation(object):
                 syn_ex, self._towrds, fillvalue=''):
             out_str += '\t'.join([frwrd, syn_ex, towrd])+'\n'
         return out_str
+
+class ListTranslation(object):
+
+    """List of translation"""
+
+    def __init__(self, list_trans):
+        """Constructor
+
+        :list_trans: TODO
+
+        """
+        self._list_trans = []
+        for trans in list_trans:
+            self._list_trans.append(Translation(*trans))
+
+    def __str__(self):
+        """Pretty printing
+        :returns: TODO
+
+        """
+        output = ''
+        for trans in self._list_trans:
+            output += trans.__str__()
+        return output
