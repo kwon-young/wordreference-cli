@@ -1,3 +1,14 @@
+#!/usr/bin/python
+# __          __      _ _____       __    _____ _      _____ 
+# \ \        / /     | |  __ \     / _|  / ____| |    |_   _|
+#  \ \  /\  / / __ __| | |__) |___| |_  | |    | |      | |  
+#   \ \/  \/ / '__/ _` |  _  // _ \  _| | |    | |      | |  
+#    \  /\  /| | | (_| | | \ \  __/ |   | |____| |____ _| |_ 
+#     \/  \/ |_|  \__,_|_|  \_\___|_|    \_____|______|_____|
+# Little cli tool for translating a word with http://www.wordreference.com
+# Version: 0.1.0
+# Author:  Kwon-Young Choi
+# URL:     https://github.com/kwon-young/wordreference-cli
 
 import argparse
 import wordreference
