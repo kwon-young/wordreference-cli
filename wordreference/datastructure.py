@@ -24,7 +24,12 @@ class Translation(object):
 
         """
         out_str = ''
-        syn_ex = self._syns + self._exs
+        r = max(len(self._syns), len(self._towrds))
+        r -= min(len(self._syns), len(self._towrds))
+        syn_ex = list(self._syns)
+        for i in range(r):
+            syn_ex.append('')
+        syn_ex += self._exs
         for frwrd, syn_ex, towrd in zip_longest(self._frwrds,
                 syn_ex, self._towrds, fillvalue=''):
             out_str += '\t'.join([frwrd, syn_ex, towrd])+'\n'

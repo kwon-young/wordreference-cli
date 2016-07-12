@@ -8,16 +8,16 @@ from unittest.mock import MagicMock
 
 class DataWrapperTest(unittest.TestCase):
 
-    def test_wordreference(self):
+    def test_retrievehtml(self):
         WrdRef = wordreference.wordreference.WordReference('fren', 'coucou')
         self.assertEqual(WrdRef.url,
                 'http://www.wordreference.com/fren/coucou')
-        with open('tests/coucou.html') as f:
-            WrdRef.retrieve_html = MagicMock(name='retrieve_html',
-                    return_value=html.fromstring(f.read()))
-        WrdRef.parse()
-        WrdRef.retrieve_html.assert_called_once_with()
-
+        html_node = WrdRef.retrieve_html()
+        WrdRef.parse(html_node)
+        str_list = []
+        # for node in WrdRef._node_list:
+            # print(node.get('class'))
+            # print(node.text_content())
 
 if __name__ == '__main__':
     unittest.main()
