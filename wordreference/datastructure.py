@@ -33,11 +33,12 @@ class Translation(object):
         l_wrd, l_syn = self.longest_syn()
         for frwrd, syn_ex, towrd in zip_longest(self._frwrds,
                 syn_ex, self._towrds, fillvalue=''):
-            spaces = ' ' * (l_wrd - len(frwrd))
+            spaces = ' ' * (l_wrd - len(frwrd)) + ' | '
             out_str += frwrd+spaces+syn_ex
+            spaces = ' ' * (l_syn - len(syn_ex)) + ' | '
+            out_str += spaces
             if towrd != '':
-                spaces = ' ' * (l_syn - len(syn_ex))
-                out_str += spaces+towrd
+                out_str += towrd
             out_str+='\n'
         return out_str
 
@@ -51,7 +52,15 @@ class Translation(object):
         for wrd in self._frwrds:
             if len(wrd) > longest_word:
                 longest_word = len(wrd)
-        return longest_word+3, longest_syn+3
+        return longest_word, longest_syn
+
+    def longest_line(self):
+        l_w, l_s = self.longest_syn()
+        l_tw = 0
+        for wrd in self._towrds:
+            if len(wrd) > l_tw:
+                l_tw = len(wrd)
+        return l_w + l_s + l_tw + 6
 
 class ListTranslation(object):
 
@@ -75,4 +84,5 @@ class ListTranslation(object):
         output = ''
         for trans in self._list_trans:
             output += trans.__str__()
+            output += '-' * trans.longest_line() + '\n'
         return output
