@@ -1,6 +1,7 @@
 
 from collections import deque
 import difflib
+import unicodedata
 
 class Interface(object):
 
@@ -41,7 +42,11 @@ class Interface(object):
         pass
 
     def treatement(self, string):
-        return string.replace(u'\xa0', u' ').strip()
+        out = string
+        # out = out.replace(u'\xa0', u' ')
+        # out = out.replace(u'\xc9', u'É')
+        out = out.strip()
+        return out
 
     def post_treatment(self, lst_i=[]):
         self._list_struct = [[[self.treatement(z) for z in y]

@@ -1,6 +1,7 @@
 
 import os
-import urllib, requests
+import six.moves.urllib as urllib
+import requests
 from lxml import html
 
 class WordReference(object):

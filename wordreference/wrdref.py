@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # __          __      _ _____       __    _____ _      _____ 
 # \ \        / /     | |  __ \     / _|  / ____| |    |_   _|
 #  \ \  /\  / / __ __| | |__) |___| |_  | |    | |      | |  
@@ -11,7 +11,12 @@
 # URL:     https://github.com/kwon-young/wordreference-cli
 
 import argparse
-import wordreference
+from . import wordreference
+from . import interface
+from . import datastructure
+# import wordreference
+# import interface
+# import datastructure
 
 def parse_argument():
     parser = argparse.ArgumentParser(
@@ -22,12 +27,20 @@ def parse_argument():
             help='Word to translate')
     return parser.parse_args()
 
-if __name__ == '__main__':
-    args = parse_argument()
-    WrdRef = wordreference.wordreference.WordReference(args.dic, args.word)
+def translate(dic, word):
+    WrdRef = wordreference.WordReference(dic, word)
     html_node = WrdRef.retrieve_html()
     node_list = WrdRef.parse(html_node)
-    interface = wordreference.interface.Interface()
-    lst_result = interface.convert(node_list)
-    trs = wordreference.datastructure.ListTranslation(lst_result)
-    print(trs)
+    interf = interface.Interface()
+    lst_result = interf.convert(node_list)
+    trs = datastructure.ListTranslation(lst_result)
+    out = trs.__str__()
+    return out
+
+def main():
+    args = parse_argument()
+    out = translate(args.dic, args.word)
+    print(out)
+
+if __name__ == '__main__':
+    main()

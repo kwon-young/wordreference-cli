@@ -1,5 +1,5 @@
 
-from itertools import zip_longest
+from six.moves import zip_longest
 
 class Translation(object):
 
@@ -30,10 +30,28 @@ class Translation(object):
         for i in range(r):
             syn_ex.append('')
         syn_ex += self._exs
+        l_wrd, l_syn = self.longest_syn()
         for frwrd, syn_ex, towrd in zip_longest(self._frwrds,
                 syn_ex, self._towrds, fillvalue=''):
-            out_str += '\t'.join([frwrd, syn_ex, towrd])+'\n'
+            spaces = ' ' * (l_wrd - len(frwrd))
+            out_str += frwrd+spaces+syn_ex
+            if towrd != '':
+                spaces = ' ' * (l_syn - len(syn_ex))
+                out_str += spaces+towrd
+            out_str+='\n'
         return out_str
+
+    def longest_syn(self):
+        longest_syn = 0
+        syn_ex = list(self._syns) + self._exs
+        for syn in syn_ex:
+            if len(syn) > longest_syn:
+                longest_syn = len(syn)
+        longest_word = 0
+        for wrd in self._frwrds:
+            if len(wrd) > longest_word:
+                longest_word = len(wrd)
+        return longest_word+3, longest_syn+3
 
 class ListTranslation(object):
 
