@@ -43,8 +43,6 @@ class Interface(object):
 
     def treatement(self, string):
         out = string
-        # out = out.replace(u'\xa0', u' ')
-        # out = out.replace(u'\xc9', u'É')
         out = out.strip()
         return out
 
